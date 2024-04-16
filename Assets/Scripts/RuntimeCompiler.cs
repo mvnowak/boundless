@@ -70,7 +70,7 @@ public class RuntimeCompiler
             Debug.Log(error.ErrorText);
         }
 
-        throw new Exception("Dunno Man");
+        throw new Exception("Compilation Failed");
     }
 
     private string[] GetCode(string script)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -50,10 +48,5 @@ public class Controller : MonoBehaviour
         {
             Debug.LogError($"Error executing script: {e.Message}");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }
