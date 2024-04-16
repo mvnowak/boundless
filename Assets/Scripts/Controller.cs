@@ -13,7 +13,6 @@ public class Controller : MonoBehaviour
     {
         // Create an instance of the RuntimeCompiler class
         RuntimeCompiler runtimeCompiler = RuntimeCompiler.GetInstance();
-        Debug.Log(runtimeCompiler);
 
         // Define the C# script to be executed dynamically
         string script = @"
