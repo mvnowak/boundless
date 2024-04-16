@@ -1,46 +1,48 @@
 ﻿using System;
 using Microsoft.CSharp;
 using UnityEngine;
-using System.Collections;
 using System.CodeDom.Compiler;
 using System.Reflection;
 
-public class RuntimeCompiler : MonoBehaviour
+public class RuntimeCompiler
 {
-    CSharpCodeProvider provider = new CSharpCodeProvider();
+    private static RuntimeCompiler _instance;
+    private static readonly object LockObject = new();
+    readonly CSharpCodeProvider _provider = new();
 
-
-    public static RuntimeCompiler instance { get; private set; }
-
-    void Awake()
+    // Private constructor to prevent instantiation from outside
+    private RuntimeCompiler()
     {
-        if (instance == null)
-            instance = this;
-        else
-            Debug.Log("There are multiple instances of the RuntimeCompiler engine in the scene.");
     }
 
-    void OnDestroy()
+    public static RuntimeCompiler GetInstance()
     {
-        instance = null;
-    }
-
-    public class MethodWrapper
-    {
-        System.Reflection.MethodInfo method;
-
-        public MethodWrapper(System.Reflection.MethodInfo method)
+        // Double-check locking for thread safety
+        if (_instance != null) return _instance;
+        lock (LockObject)
         {
-            this.method = method;
+            _instance ??= new RuntimeCompiler();
         }
 
-        public void doIt()
+        return _instance;
+    }
+
+    private class MethodWrapper
+    {
+        readonly MethodInfo _method;
+
+        public MethodWrapper(MethodInfo method)
         {
-            IEnumerable en = (IEnumerable)method.Invoke(null, null);
+            _method = method;
+        }
+
+        public void DoIt()
+        {
+            _method.Invoke(null, null);
         }
     }
 
-    public System.Action InterpretScript(string script)
+    public Action InterpretScript(string script)
     {
         CompilerParameters parameters = new CompilerParameters();
 
@@ -53,31 +55,27 @@ public class RuntimeCompiler : MonoBehaviour
 
         parameters.GenerateExecutable = false;
         parameters.GenerateInMemory = true;
-        
-        CompilerResults results = provider.CompileAssemblyFromSource(parameters, GetCode(script));
+
+        CompilerResults results = _provider.CompileAssemblyFromSource(parameters, GetCode(script));
 
         if (!results.Errors.HasErrors)
         {
             var cls = results.CompiledAssembly.GetType("DynamicCode");
             var method = cls.GetMethod("DynamicMethod", BindingFlags.Static | BindingFlags.Public);
-            return (new MethodWrapper(method)).doIt;
+            return (new MethodWrapper(method)).DoIt;
         }
-        else
+
+        foreach (CompilerError error in results.Errors)
         {
-            foreach (CompilerError error in results.Errors)
-            {
-                Debug.Log(error.ErrorText);
-            }
-
-            throw new System.Exception("Dunno Man");
-
-            //return null;
+            Debug.Log(error.ErrorText);
         }
+
+        throw new Exception("Dunno Man");
     }
 
-    public string[] GetCode(string script)
+    private string[] GetCode(string script)
     {
-        return new string[]
+        return new []
         {
             @"using System;
 			using UnityEngine;
