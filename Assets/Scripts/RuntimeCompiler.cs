@@ -10,14 +10,12 @@ public class RuntimeCompiler
     private static readonly object LockObject = new();
     readonly CSharpCodeProvider _provider = new();
 
-    // Private constructor to prevent instantiation from outside
     private RuntimeCompiler()
     {
     }
 
     public static RuntimeCompiler GetInstance()
     {
-        // Double-check locking for thread safety
         if (_instance != null) return _instance;
         lock (LockObject)
         {
@@ -75,43 +73,32 @@ public class RuntimeCompiler
 
     private string[] GetCode(string script)
     {
-        return new []
+        return new[]
         {
-            @"using System;
-			using UnityEngine;
-			using System.Collections;
-			using System.Collections.Generic;
+            @"
+            using System;
+            using System.Linq;
+            using UnityEngine;
+            using System.Collections;
+            using System.Collections.Generic;
+            using Random = UnityEngine.Random; // Use UnityEngine's Random
 
-				public class DynamicCode : MonoBehaviour
-				{
-							
-				private static DynamicCode inst;
+            public class DynamicCode : MonoBehaviour
+            {
+                        
+                private static DynamicCode inst;
 
-				public static DynamicCode Instance{
-					get{
-						if(inst == null){
-							var go = new GameObject(""DynamicCode"");
-							inst = go.AddComponent<DynamicCode>();
-						}
-						return inst;
-					}
-				}
-
-
-					public static void DynamicMethod(){
-						DynamicCode.Instance.StartCoroutine(CR());
-					}
-
-					public static IEnumerator CR(){
-						" + script + @"
-						yield return new WaitForSeconds(1f);
-						Debug.Log(1);
-						yield return new WaitForSeconds(1f);
-						Debug.Log(2);
-						yield return new WaitForSeconds(1f);
-						Debug.Log(3);
-					}
-				}
+                public static DynamicCode Instance{
+                    get{
+                        if(inst == null){
+                            var go = new GameObject(""DynamicCode"");
+                            inst = go.AddComponent<DynamicCode>();
+                        }
+                        return inst;
+                    }
+                }
+                " + script + @"
+            }
 			"
         };
     }

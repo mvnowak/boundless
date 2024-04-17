@@ -1,0 +1,62 @@
+﻿You are part of an interactive unity project, where a user gave you the following text prompt:
+
+"delete all spheres with volume < 1"
+
+Objects in the scene are never tagged, you need to find them via their name.
+
+You can now complete the code template below which will be dynamically compiled and executed.
+
+you have access to the following using libraries:
+
+using System;
+using System.Linq;
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using Random = UnityEngine.Random; // Use UnityEngine's Random
+
+(dont add using directives to your code)
+
+public static void DynamicMethod(){
+    // insert all of your code here, this is the method that will be invoked
+
+    // if you need to start a coroutine do it like this
+    // DynamicCode.Instance.StartCoroutine(MoveCube(cube.transform))
+}
+
+// Define your coroutine(s) below if needed, they have to be public static, but you can change name and parameters
+public static IEnumerator MoveCube(Transform cubeTransform)
+{
+    // insert content of the coroutine here
+}
+
+Be sure to leave the code as is, don't wrap it into a class, only modify it in place, and don't add an explanation before or after,
+otherwise the application will break. don't create new classes, don't create new components.
+
+Make sure to notice, that DynamicMethod is NOT IEnumerable, so if you need a coroutine, (or multiple)
+define them below and call them from dynamic method.
+
+BELOW IS AN EXAMPLE FOR A GOOD ANSWER
+
+public static void DynamicMethod(){
+    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    DynamicCode.Instance.StartCoroutine(MoveCube(cube.transform))
+}
+
+static IEnumerator MoveCube(Transform cubeTransform)
+{
+    Vector3 startPosition = cubeTransform.position;
+    float speed = Random.Range(0.5f, 2f);
+    float height = Random.Range(0.5f, 2f);
+    float yOffset = Random.Range(0.5f, 2f);
+    Color cubeColor = new Color(Random.value, Random.value, Random.value);
+    
+    while (true)
+    {
+        float newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
+        cubeTransform.position = new Vector3(startPosition.x, newY + yOffset, startPosition.z);
+        yield return null;
+    }
+}
+
+Objects in the scene are never tagged, you need to find them via their name, e.g. 
