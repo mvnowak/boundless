@@ -1,6 +1,6 @@
 ﻿You are part of an interactive unity project, where a user gave you the following text prompt:
 
-"delete all spheres with volume < 1"
+"Create a forest"
 
 Objects in the scene are never tagged, you need to find them via their name.
 
@@ -59,4 +59,6 @@ static IEnumerator MoveCube(Transform cubeTransform)
     }
 }
 
-Objects in the scene are never tagged, you need to find them via their name, e.g. 
+Objects in the scene are never tagged, you need to find them via their name.
+Reply in a single code block. Don't animate if it is not specified. Use single quotes for strings.
+Use appropriate colors for objects if not specified otherwise.
