@@ -10,23 +10,28 @@ public class Controller : MonoBehaviour
         string script = @"
             
 public static void DynamicMethod(){
-    // Create a forest with a specified number of trees
-    int treeCount = 100;
-    float areaSize = 50f;
-
-    for (int i = 0; i < treeCount; i++)
+    GameObject[] spheres = GameObject.FindObjectsOfType<GameObject>().Where(obj => obj.name.Contains('Sphere')).ToArray();
+    foreach (GameObject sphere in spheres)
     {
-        GameObject tree = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        tree.name = 'Tree' + i;
-        tree.transform.position = new Vector3(Random.Range(-areaSize, areaSize), 0, Random.Range(-areaSize, areaSize));
-        tree.transform.localScale = new Vector3(1, Random.Range(5f, 15f), 1);
+        GameObject.Destroy(sphere);
+    }
 
-        // Optionally, you can add tree leaves as spheres on top of the cylinders
-        GameObject leaves = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        leaves.transform.parent = tree.transform;
-        leaves.transform.localPosition = new Vector3(0, 1, 0);
-        leaves.transform.localScale = new Vector3(3, 3, 3);
-        leaves.GetComponent<Renderer>().material.color = Color.green;
+    GameObject[] cubes = GameObject.FindObjectsOfType<GameObject>().Where(obj => obj.name.Contains('Cube')).ToArray();
+    GameObject biggestCube = cubes.OrderByDescending(cube => cube.transform.localScale.magnitude).FirstOrDefault();
+    if (biggestCube != null)
+    {
+        Renderer cubeRenderer = biggestCube.GetComponent<Renderer>();
+        cubeRenderer.material.color = Color.green;
+        DynamicCode.Instance.StartCoroutine(SpinCube(biggestCube.transform));
+    }
+}
+
+public static IEnumerator SpinCube(Transform cubeTransform)
+{
+    while (true)
+    {
+        cubeTransform.Rotate(Vector3.up, 50f * Time.deltaTime);
+        yield return null;
     }
 }
         ";
