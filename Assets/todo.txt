@@ -1,0 +1,2 @@
+﻿handle deletion of moving objects (referenced by coroutine)
+mention which primitive types are supported by the library (not torus)

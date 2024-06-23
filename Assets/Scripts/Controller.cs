@@ -22,6 +22,8 @@ public class Controller : MonoBehaviour
 
     public async Task SpeechDetected(string speech)
     {
+        // escape double quotes in speech
+        speech = speech.Replace("\"", "\\\"");
         // Insert prompt into prompt template
         string prompt = promptTemplate.Replace("<prompt>", ">" + speech + "<");
         
