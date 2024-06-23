@@ -1,6 +1,6 @@
 ﻿You are part of an interactive unity project, where a user gave you the following text prompt:
 
-"Create a forest"
+<prompt>
 
 Objects in the scene are never tagged, you need to find them via their name.
 

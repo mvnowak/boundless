@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,47 +45,54 @@ public class ApiHandler : MonoBehaviour
 {
     private string openAIApiKey = Private.ApiKey;
 
+    // gpt-3.5-turbo or gpt-4o
+    // GPT4 cost: I+O 500 * (5/1_000_000) + 500 * (15/1_000_000)
     private string requestBody = @"
     {
-        ""model"": ""gpt-3.5-turbo"",
+        ""model"": ""gpt-4o"", 
         ""messages"": [
             {
                 ""role"": ""system"",
-                ""content"": ""You are a helpful assistant.""
-            },
-            {
-                ""role"": ""user"",
-                ""content"": ""Hello!""
+                ""content"": ""<system_prompt>""
             }
         ]
     }";
-
-    private async void Start()
+    
+    public async Task<string> GetAssistantResponse(string systemPrompt)
     {
-        using (var httpClient = new HttpClient())
+        string request = requestBody.Replace("<system_prompt>", systemPrompt);
+        Debug.Log("Sending request");
+        Debug.Log(request);
+        //
+        // string path = "Assets/Resources/example.txt";
+        //
+        // WriteStringToFile(path, request);
+        // return "";
+        
+        using var httpClient = new HttpClient();
+        httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAIApiKey}");
+
+        var content = new StringContent(request, Encoding.UTF8, "application/json");
+
+        var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
+
+        if (response.IsSuccessStatusCode)
         {
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAIApiKey}");
-
-            var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-
-            var response = await httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseBody = await response.Content.ReadAsStringAsync();
-                Debug.Log(responseBody);
-                // Parse the JSON response using JsonUtility
-                ChatCompletionResponse jsonResponse = JsonUtility.FromJson<ChatCompletionResponse>(responseBody);
-                string assistantContent = jsonResponse.choices[0].message.content;
-                Debug.Log($"Assistant's response: {assistantContent}");
-            }
-            else
-            {
-                Debug.LogError("Error: " + response.StatusCode);
-                // Get the error details from the response
-                var errorResponse = await response.Content.ReadAsStringAsync();
-                Debug.LogError("Error Response: " + errorResponse);
-            }
+            var responseBody = await response.Content.ReadAsStringAsync();
+            Debug.Log("Full response");
+            Debug.Log(responseBody);
+            // Parse the JSON response using JsonUtility
+            ChatCompletionResponse jsonResponse = JsonUtility.FromJson<ChatCompletionResponse>(responseBody);
+            
+            string assistantContent = jsonResponse.choices[0].message.content;
+            Debug.Log($"Assistant's response: {assistantContent}");
+            return assistantContent;
         }
+
+        Debug.LogError("Error: " + response.StatusCode);
+        // Get the error details from the response
+        var errorResponse = await response.Content.ReadAsStringAsync();
+        Debug.LogError("Error Response: " + errorResponse);
+        return null;
     }
 }

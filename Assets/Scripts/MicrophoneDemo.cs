@@ -12,6 +12,7 @@ namespace Whisper.Samples
     /// </summary>
     public class MicrophoneDemo : MonoBehaviour
     {
+        public Controller controller;
         public WhisperManager whisper;
         public MicrophoneRecord microphoneRecord;
         public bool streamSegments = true;
@@ -89,6 +90,7 @@ namespace Whisper.Samples
             
             outputText.text = text;
             UiUtils.ScrollDown(scroll);
+            await controller.SpeechDetected(text);
         }
         
         private void OnLanguageChanged(int ind)
