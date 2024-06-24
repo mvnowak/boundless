@@ -31,10 +31,12 @@ public static IEnumerator MoveCube(Transform cubeTransform)
 }
 
 Be sure to leave the code as is, don't wrap it into a class, only modify it in place, and don't add an explanation before or after,
-otherwise the application will break. don't create new classes, don't create new components.
+otherwise the application will break. Don't create new classes, don't create new components.
 
 Make sure to notice, that DynamicMethod is NOT IEnumerable, so if you need a coroutine, (or multiple)
 define them below and call them from dynamic method.
+
+All loops within coroutines should be written with try-catch, to prevent errors when the referenced objects are removed later on.
 
 BELOW IS AN EXAMPLE FOR A GOOD ANSWER
 
@@ -45,23 +47,31 @@ public static void DynamicMethod(){
 
 static IEnumerator MoveCube(Transform cubeTransform)
 {
-    Vector3 startPosition = cubeTransform.position;
+    Vector3 startPos = cubeTransform.position;
     float speed = Random.Range(0.5f, 2f);
-    float height = Random.Range(0.5f, 2f);
-    float yOffset = Random.Range(0.5f, 2f);
     Color cubeColor = new Color(Random.value, Random.value, Random.value);
     
     while (true)
     {
-        float newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
-        cubeTransform.position = new Vector3(startPosition.x, newY + yOffset, startPosition.z);
+        try
+        {
+            float newY = startPos.y + Mathf.Sin(Time.time * speed) * 0.3f;
+            cubeTransform.position = new Vector3(startPos.x, newY + 0.2f, startPos.z);
+        }
+        catch (Exception e)
+        {
+            yield break;
+        }
+
         yield return null;
     }
 }
 
 Objects in the scene are never tagged, you need to find them via their name.
 You have to create all objects that you need.
-You can never name a variable "base", its a reserved keyword.
+You can never name a variable "base", it's a reserved keyword.
 Be aware, that the scene is not empty, so if you want to modify objects you spawned, remember their names and specify them by name.
 Reply in a single code block. Don't animate if it is not specified. Use single quotes for strings.
 Use appropriate colors for objects if not specified otherwise.
+You can only create the primitives: Cube, Sphere, Capsule, Cylinder and Plane
+and only use the colors black, blue, cyan, gray, green, magenta, red, white, yellow (e.g. Color.blue)
