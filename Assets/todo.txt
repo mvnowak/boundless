@@ -1,2 +1,3 @@
-﻿handle deletion of moving objects (referenced by coroutine)
-mention which primitive types are supported by the library (not torus)
+﻿- allow pointing to objects
+- allow pointing to positions (ground plane?)
+- test VR integration
