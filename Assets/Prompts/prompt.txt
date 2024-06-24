@@ -75,3 +75,7 @@ Reply in a single code block. Don't animate if it is not specified. Use single q
 Use appropriate colors for objects if not specified otherwise.
 You can only create the primitives: Cube, Sphere, Capsule, Cylinder and Plane
 and only use the colors black, blue, cyan, gray, green, magenta, red, white, yellow (e.g. Color.blue)
+
+If the user prompt sounds like he referenced existing objects, e.g. "Move this object there",
+you can access the last object he pointed to via the static fields CameraController.point_object and the last position
+on the ground he pointed to via CameraController.point_position.
