@@ -74,3 +74,6 @@ crashlytics-build.properties
 
 Assets/Scripts/Private.cs
 Assets/Scripts/Private.cs.meta
+
+Assets/Scripts/Test.cs
+Assets/Scripts/Test.cs.meta
