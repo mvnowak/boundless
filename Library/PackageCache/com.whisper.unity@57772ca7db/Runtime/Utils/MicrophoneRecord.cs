@@ -67,8 +67,10 @@ namespace Whisper.Utils
         [Header("Microphone selection (optional)")] 
         [Tooltip("Optional UI dropdown with all available microphone inputs")]
         [CanBeNull] public Dropdown microphoneDropdown;
-        [Tooltip("The label of default microphone input in dropdown")]
-        public string microphoneDefaultLabel = "Default microphone";
+        private string microphoneDefaultLabel = "Default microphone";
+        
+        [Tooltip("The index of default microphone input in dropdown")]
+        public int microphoneDefaultIndex = 2;
 
         /// <summary>
         /// Raised when VAD status changed.
@@ -125,6 +127,7 @@ namespace Whisper.Utils
                 microphoneDropdown.value = microphoneDropdown.options
                     .FindIndex(op => op.text == microphoneDefaultLabel);
                 microphoneDropdown.onValueChanged.AddListener(OnMicrophoneChanged);
+                microphoneDropdown.value = microphoneDefaultIndex;
             }
         }
 
