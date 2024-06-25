@@ -3234,7 +3234,7 @@ MonoBehaviour:
   dropVadPart: 1
   vadStopTime: 3
   microphoneDropdown: {fileID: 948466958}
-  microphoneDefaultLabel: Mikrofon (Realtek(R) Audio)
+  microphoneDefaultIndex: 2
 --- !u!114 &1337591124
 MonoBehaviour:
   m_ObjectHideFlags: 0
