@@ -29,6 +29,7 @@ public class Controller : MonoBehaviour
         
         // Get code response from GPT API
         string script = await apiHandler.GetAssistantResponse(prompt);
+        //string script = "x";
         
         Debug.Log("Received response from AI:");
         Debug.Log(script);
