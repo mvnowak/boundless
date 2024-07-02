@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class Controller : MonoBehaviour
 {
@@ -27,8 +28,9 @@ public class Controller : MonoBehaviour
         string prompt = promptTemplate.Replace("<prompt>", ">" + speech + "<");
 
         // Get code response from GPT API
-        string script = await apiHandler.GetAssistantResponse(prompt);
-        //string script = "x";
+        //string script = await apiHandler.GetAssistantResponse(prompt);
+        string script = "x";
+        Debug.Log("mock response");
 
         Debug.Log("Received response from AI:");
         Debug.Log(script);

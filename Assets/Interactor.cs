@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Whisper.Samples;
 using Whisper.Utils;
 
 public class Interactor : MonoBehaviour
 {
 
     public InputActionProperty toggleRecord;
-    public MicrophoneRecord mr;
+    public MicrophoneDemo md;
 
     private bool recording;
 
@@ -17,14 +18,14 @@ public class Interactor : MonoBehaviour
         if (!recording && value == 1)
         {
             recording = true;
-            mr.StartRecord();
+            md.OnButtonPressed();
             Debug.Log("Started recording");
         }
 
         if (recording && value == 0)
         {
             recording = false;
-            mr.StopRecord();
+            md.OnButtonPressed();
             Debug.Log("Ended recording");
 
         }
