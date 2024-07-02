@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 public class Controller : MonoBehaviour
 {
-    
     public ApiHandler apiHandler;
-    
+
     private string promptFilePath = "Assets/Prompts/prompt.txt";
     private string promptTemplate;
 
@@ -26,40 +25,39 @@ public class Controller : MonoBehaviour
         speech = speech.Replace("\"", "\\\"");
         // Insert prompt into prompt template
         string prompt = promptTemplate.Replace("<prompt>", ">" + speech + "<");
-        
+
         // Get code response from GPT API
         string script = await apiHandler.GetAssistantResponse(prompt);
         //string script = "x";
-        
+
         Debug.Log("Received response from AI:");
         Debug.Log(script);
 
         // Run code
         ExecuteScript(script);
-        
     }
-    
-    public static string RemoveCSharpCodeBlock(string input)
-         {
-             // Define the regular expression pattern to match the ```csharp ... ``` block
-             string pattern = @"^```csharp\s*([\s\S]*?)\s*```$";
-     
-             // Use RegexOptions.Multiline to ensure the ^ and $ match start and end of lines
-             Regex regex = new Regex(pattern, RegexOptions.Multiline);
-     
-             // Attempt to find the match
-             Match match = regex.Match(input);
-     
-             if (match.Success)
-             {
-                 // Extract the code inside the code block
-                 string code = match.Groups[1].Value.Trim();
-                 return code;
-             }
-     
-             // If no match found, return the original input string
-             return input;
-         }
+
+    private static string RemoveCSharpCodeBlock(string input)
+    {
+        // Define the regular expression pattern to match the ```csharp ... ``` block
+        string pattern = @"^```csharp\s*([\s\S]*?)\s*```$";
+
+        // Use RegexOptions.Multiline to ensure the ^ and $ match start and end of lines
+        Regex regex = new Regex(pattern, RegexOptions.Multiline);
+
+        // Attempt to find the match
+        Match match = regex.Match(input);
+
+        if (match.Success)
+        {
+            // Extract the code inside the code block
+            string code = match.Groups[1].Value.Trim();
+            return code;
+        }
+
+        // If no match found, return the original input string
+        return input;
+    }
 
     void ExecuteScript(string script)
     {
