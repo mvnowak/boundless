@@ -8,8 +8,9 @@ public class MyRay : MonoBehaviour
     public InputActionProperty rayAction;
     public static Vector3 point_position;
     public static GameObject point_object;
+    public GameObject rightController;
 
-    public bool recording = false;
+    private bool casting = false;
     void Start()
     {
         
@@ -19,23 +20,23 @@ public class MyRay : MonoBehaviour
     void Update()
     {
         int value = (int)rayAction.action.ReadValue<float>();
-        if (!recording && value == 1)
+        if (!casting && value == 1)
         {
-            recording = true;
+            casting = true;
             Debug.Log("Shooting ray");
             ShootRaycast();
         }
 
-        if (recording && value == 0)
+        if (casting && value == 0)
         {
-            recording = false;
+            casting = false;
         }
     }
     
     void ShootRaycast()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        if (Physics.Raycast(rightController.transform.position, rightController.transform.forward, out hit))
         {
             if (hit.collider.gameObject.name == "Ground")
             {

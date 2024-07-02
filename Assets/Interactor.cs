@@ -1,34 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Whisper.Utils;
 
 public class Interactor : MonoBehaviour
 {
 
-    public InputActionProperty test;
+    public InputActionProperty toggleRecord;
+    public MicrophoneRecord mr;
 
-    public bool recording = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool recording;
 
     // Update is called once per frame
     void Update()
     {
-        int value = (int)test.action.ReadValue<float>();
+        int value = (int)toggleRecord.action.ReadValue<float>();
         if (!recording && value == 1)
         {
             recording = true;
+            mr.StartRecord();
             Debug.Log("Started recording");
         }
 
         if (recording && value == 0)
         {
             recording = false;
+            mr.StopRecord();
             Debug.Log("Ended recording");
 
         }

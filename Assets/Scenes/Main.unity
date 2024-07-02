@@ -1354,7 +1354,6 @@ GameObject:
   - component: {fileID: 1426950998}
   - component: {fileID: 1426950997}
   - component: {fileID: 1426950996}
-  - component: {fileID: 1426951000}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1449,39 +1448,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1426951000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426950995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd7052546166194eab65fe1e23306f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  test:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Test
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 0f419176-3972-4012-ba06-e285e34e566b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 5247b24d-a520-4cbb-b973-f48ccebb3c57
-        m_Path: <XRController>{LeftHand}/primaryButton
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Test
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  recording: 0
 --- !u!1 &1774189219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,7 +1462,6 @@ GameObject:
   - component: {fileID: 1774189223}
   - component: {fileID: 1774189222}
   - component: {fileID: 1774189221}
-  - component: {fileID: 1774189226}
   m_Layer: 0
   m_Name: Right Controller
   m_TagString: Untagged
@@ -2140,31 +2105,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -6447266317303757838, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ButtonPressPoint: 0.5
---- !u!114 &1774189226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774189219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb6f7a7d321cebc4e9c30b211bc98196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rayAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Ray
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 5a552313-97df-4141-a405-e0c643b220a7
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  recording: 0
 --- !u!1 &1932665049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2177,6 +2117,8 @@ GameObject:
   - component: {fileID: 1932665050}
   - component: {fileID: 1932665052}
   - component: {fileID: 1932665053}
+  - component: {fileID: 1932665054}
+  - component: {fileID: 1932665055}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -2253,6 +2195,56 @@ MonoBehaviour:
   vadStopTime: 3
   microphoneDropdown: {fileID: 0}
   microphoneDefaultIndex: 2
+--- !u!114 &1932665054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932665049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd7052546166194eab65fe1e23306f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleRecord:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Toggle Record
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 0aca4b2c-6153-4bfa-ac56-0fed750f8a4b
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  mr: {fileID: 1932665053}
+--- !u!114 &1932665055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932665049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6f7a7d321cebc4e9c30b211bc98196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Ray
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: bfb6f4d3-bb25-4080-86ea-fe16b7f16449
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightController: {fileID: 1774189219}
 --- !u!4 &403481700470531358
 Transform:
   m_ObjectHideFlags: 0
