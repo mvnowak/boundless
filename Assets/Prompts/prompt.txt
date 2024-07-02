@@ -2,7 +2,7 @@
 
 <prompt>
 
-Objects in the scene are never tagged, you need to find them via their name.
+Objects in the scene are never tagged, you need to find them via their name (search all object names case insensitive).
 
 You can now complete the code template below which will be dynamically compiled and executed.
 
@@ -29,6 +29,7 @@ public static IEnumerator MoveCube(Transform cubeTransform)
 {
     // insert content of the coroutine here
 }
+// DONT ADD THE EMPTY COROUTINE IF YOU DONT NEED IT, JUST OMIT IT COMPLETELY
 
 Be sure to leave the code as is, don't wrap it into a class, only modify it in place, and don't add an explanation before or after,
 otherwise the application will break. Don't create new classes, don't create new components.
@@ -78,4 +79,19 @@ and only use the colors black, blue, cyan, gray, green, magenta, red, white, yel
 
 If the user prompt sounds like he referenced existing objects, e.g. "Move this object there",
 you can access the last object he pointed to via the static fields MyRay.point_object and the last position
-on the ground he pointed to via MyRay.point_position
+on the ground he pointed to via MyRay.point_position  
+IF THE USER MENTIONS A SPECIFIC OBJECT e.g to modify it, ACCESS IF VIA MyRay.point_object !!!!
+so if the user says "delete that object"
+do
+public static void DynamicMethod(){
+	GameObject.Destroy(MyRay.point_object);   
+}
+
+or if he says "increase the size of that cube by a factor of 3 do
+
+public static void DynamicMethod(){
+	MyRay.point_object.transform.localScale *= 3;   
+}
+
+DONT TRY TO FIND AN OBJECT CALLED TARGET OBJECT.
+IF THE USER PROMPT SOUNDS LIKE THE USER POINTED TO AN OBJECT, USE THE MyRay.point_object REFERENCE!!!
