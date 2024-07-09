@@ -40,7 +40,7 @@ public class MyRay : MonoBehaviour
         {
             if (hit.collider.gameObject.name == "Ground")
             {
-                point_position = hit.point;
+                point_position = hit.point + new Vector3(0, 0.6f, 0);
                 Debug.Log("Hit Ground at: " + point_position);
             }
             else

@@ -22,6 +22,12 @@ public class Controller : MonoBehaviour
 
     public async Task SpeechDetected(string speech)
     {
+        if (speech.Length < 2 || speech.Contains("BLANK_AUDIO"))
+        {
+            Debug.Log("empty speech");
+            return;
+        }
+
         // escape double quotes in speech
         speech = speech.Replace("\"", "\\\"");
         // Insert prompt into prompt template

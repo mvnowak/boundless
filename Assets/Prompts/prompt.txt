@@ -58,12 +58,13 @@ static IEnumerator MoveCube(Transform cubeTransform)
         {
             float newY = startPos.y + Mathf.Sin(Time.time * speed) * 0.3f;
             cubeTransform.position = new Vector3(startPos.x, newY + 0.2f, startPos.z);
+            // don't yield here
         }
         catch (Exception e)
         {
             yield break;
         }
-
+        // ALWAYS YIELD RETURN NULL OUTSIDE THE TRY CATCH
         yield return null;
     }
 }

@@ -62,12 +62,6 @@ public class ApiHandler : MonoBehaviour
         string request = requestBody.Replace("<system_prompt>", systemPrompt);
         Debug.Log("Sending request");
         Debug.Log(request);
-        //
-        // string path = "Assets/Resources/example.txt";
-        //
-        // WriteStringToFile(path, request);
-        // return "";
-        
         using var httpClient = new HttpClient();
         httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {openAIApiKey}");
 
