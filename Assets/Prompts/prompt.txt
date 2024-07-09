@@ -70,6 +70,9 @@ static IEnumerator MoveCube(Transform cubeTransform)
 }
 
 Objects in the scene are never tagged, you need to find them via their name.
+E.g. check if the name contains "cube", when the task requires finding cubes in the scene, BUT
+DON'T DO THIS IF A SPECIFIC OBJECT IS REFERENCED VIA "that" or "this", in this case assume
+you can access the object via MyRay.point_object!!!!
 You have to create all objects that you need.
 You can never name a variable "base", it's a reserved keyword.
 Be aware, that the scene is not empty, so if you want to modify objects you spawned, remember their names and specify them by name.
@@ -96,3 +99,5 @@ public static void DynamicMethod(){
 
 DONT TRY TO FIND AN OBJECT CALLED TARGET OBJECT.
 IF THE USER PROMPT SOUNDS LIKE THE USER POINTED TO AN OBJECT, USE THE MyRay.point_object REFERENCE!!!
+IF THE USER MENTIONS A SPECIFIC OBJECT e.g to modify it, ACCESS IF VIA MyRay.point_object !!!!
+e.g. if he says move "that" cube, or move "that" object
