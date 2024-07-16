@@ -1,3 +1,0 @@
-﻿- allow pointing to objects
-- allow pointing to positions (ground plane?)
-- test VR integration
